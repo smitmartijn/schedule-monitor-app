@@ -1,0 +1,35 @@
+{
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"]
+    },
+    "types": [
+      "@types/node",
+      "@cloudflare/workers-types"
+    ]
+  },
+  "include": [
+    ".nuxt/nuxt.d.ts",
+    "**/*",
+    "server/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
