@@ -2,6 +2,10 @@ import { getDB, getJobs, getLatestSync } from '../database';
 import { formatJobsWithStatus, getOverallStatus } from '../utils/status-calculator';
 
 export default defineEventHandler(async (event) => {
+  // Get query parameter for simplified response
+  const query = getQuery(event);
+  const simpleStatus = query.simple === 'true';
+
   const db = getDB(event.context.cloudflare.env);
 
   // Get all jobs
@@ -21,6 +25,15 @@ export default defineEventHandler(async (event) => {
     ? new Date(latestSync.syncedAt).toISOString()
     : null;
 
+  // Return simplified response if requested
+  if (simpleStatus) {
+    return {
+      status,
+      lastSyncedAt
+    };
+  }
+
+  // Return full response
   return {
     status,
     lastSyncedAt: lastSyncedAt,
